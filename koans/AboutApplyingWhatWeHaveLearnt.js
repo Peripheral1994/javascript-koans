@@ -32,16 +32,28 @@ describe("About Applying What We Have Learnt", function() {
         }
     }
 
-    expect(productsICanEat.length).toBe(FILL_ME_IN);
+    expect(productsICanEat.length).toBe(1);
   });
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function () {
 
       var productsICanEat = [];
 
-      /* solve using filter() & all() / any() */
-
-      expect(productsICanEat.length).toBe(FILL_ME_IN);
+      function findUnwantedIngredients () {
+          for (var i = 0; i < products.length; i++) {
+              hasUnwantedIngredient = false;
+              for (var j = 0; j < arguments.length; j++) {
+                  if (arguments[j] === "nuts" && products[i].containsNuts === true) {
+                      hasUnwantedIngredient = true;
+                  } else if (_(products[i]).filter(function (x){ return x === arguments[j]})) {
+                      hasUnwantedIngredient = true;
+                  }
+                  if (!hasBadIngredient) {productsICanEat.push(products[i])}
+              }
+	  }
+      
+     findUnwantedIngredients("nuts", "mushrooms");    
+     expect(productsICanEat.length).toBe(1);
   });
 
   /*********************************************************************************/
@@ -55,14 +67,17 @@ describe("About Applying What We Have Learnt", function() {
       }
     }
 
-    expect(sum).toBe(FILL_ME_IN);
+    expect(sum).toBe(233168);
   });
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
 
-    var sum = FILL_ME_IN;    /* try chaining range() and reduce() */
+    var sum = _(_.range(0, 1000)).chain()
+	  .filter(function (x) {return x % 5 === 0 || x % 3 === 0})
+	  .reduce(function (memo, x) {return memo + x}, 0)
+	  .value();
 
-    expect(233168).toBe(FILL_ME_IN);
+    expect(233168).toBe(sum);
   });
 
   /*********************************************************************************/
@@ -75,15 +90,19 @@ describe("About Applying What We Have Learnt", function() {
         }
     }
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   it("should count the ingredient occurrence (functional)", function () {
-    var ingredientCount = { "{ingredient name}": 0 };
-
-    /* chain() together map(), flatten() and reduce() */
-
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    var ingredientCount = _(products).chain()
+	  .map(function(name) { 
+		return name.ingredients;})
+	  .flatten()
+	  .reduce(function(ingredientCount, i) {
+		  ingredientCount[i] = (ingredientCount[i] || 0) + 1;
+		  return ingredientCount}, {}).value();
+		  
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
@@ -109,5 +128,6 @@ describe("About Applying What We Have Learnt", function() {
   it("should find the 10001st prime", function () {
 
   });
-  */
+  
 });
+*/
