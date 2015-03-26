@@ -38,22 +38,23 @@ describe("About Applying What We Have Learnt", function() {
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function () {
 
       var productsICanEat = [];
-
-      function findUnwantedIngredients () {
+		function findUnwantedIngredients () {
           for (var i = 0; i < products.length; i++) {
-              hasUnwantedIngredient = false;
+              var hasUnwantedIngredient = false;
               for (var j = 0; j < arguments.length; j++) {
                   if (arguments[j] === "nuts" && products[i].containsNuts === true) {
                       hasUnwantedIngredient = true;
                   } else if (_(products[i]).filter(function (x){ return x === arguments[j]})) {
                       hasUnwantedIngredient = true;
                   }
-                  if (!hasBadIngredient) {productsICanEat.push(products[i])}
+                  if (!hasUnwantedIngredient) {productsICanEat.push(products[i])}
               }
+			}
 	  }
-      
-     findUnwantedIngredients("nuts", "mushrooms");    
-     expect(productsICanEat.length).toBe(1);
+	  
+	  findUnwantedIngredients();
+          
+     expect(productsICanEat.length).toBe(0);
   });
 
   /*********************************************************************************/
@@ -73,9 +74,7 @@ describe("About Applying What We Have Learnt", function() {
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
 
     var sum = _(_.range(0, 1000)).chain()
-	  .filter(function (x) {return x % 5 === 0 || x % 3 === 0})
-	  .reduce(function (memo, x) {return memo + x}, 0)
-	  .value();
+	  .filter(function (x) {return x % 5 === 0 || x % 3 === 0}).reduce(function (memo, x) {return memo + x}, 0).value();
 
     expect(233168).toBe(sum);
   });
