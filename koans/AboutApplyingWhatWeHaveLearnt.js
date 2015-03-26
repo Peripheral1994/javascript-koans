@@ -128,6 +128,5 @@ describe("About Applying What We Have Learnt", function() {
   it("should find the 10001st prime", function () {
 
   });
-  
+  */
 });
-*/
